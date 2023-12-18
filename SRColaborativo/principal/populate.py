@@ -1,6 +1,7 @@
 #encoding:utf-8
 from principal.models import Usuario, Ocupacion, Puntuacion, Pelicula, Categoria
 from datetime import datetime
+from principal.recommendations import sim_pearson
 
 path = "./data/"
 
@@ -99,3 +100,23 @@ def populateRatings(u,m):
     Puntuacion.objects.bulk_create(lista)
 
     return Puntuacion.objects.count()
+
+def populateRS():
+    
+    puntuaciones = Puntuacion.objects.all().values('usuario_id', 'pelicula_id', 'puntuacion')
+    
+    dict_usuarios = {}
+    dict_peliculas = {}
+    for puntuacion in puntuaciones:
+        if puntuacion['usuario_id'] not in dict_usuarios:
+            dict_usuarios[puntuacion['usuario_id']] = {}
+        dict_usuarios[puntuacion['usuario_id']][puntuacion['pelicula_id']] = puntuacion['puntuacion']
+        if puntuacion['pelicula_id'] not in dict_peliculas:
+            dict_peliculas[puntuacion['pelicula_id']] = {}
+        dict_peliculas[puntuacion['pelicula_id']][puntuacion['usuario_id']] = puntuacion['puntuacion']
+
+    rs = {}
+    rs['usuarios'] = dict_usuarios
+    rs['peliculas'] = dict_peliculas
+
+    return rs
