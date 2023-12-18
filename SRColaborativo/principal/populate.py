@@ -2,7 +2,7 @@
 from principal.models import Usuario, Ocupacion, Puntuacion, Pelicula, Categoria
 from datetime import datetime
 
-path = "data"
+path = "./data/"
 
 def populateDB():
     o=populateOccupations()
@@ -16,7 +16,7 @@ def populateOccupations():
     Ocupacion.objects.all().delete()
     
     lista=[]
-    fileobj=open(path+"\\u.occupation", "r")
+    fileobj=open(path+"u.occupation", "r", encoding="latin-1")
     for line in fileobj.readlines():
         lista.append(Ocupacion(nombre=str(line.strip())))
     fileobj.close()
@@ -28,7 +28,7 @@ def populateGenres():
     Categoria.objects.all().delete()
     
     lista=[]
-    fileobj=open(path+"\\u.genre", "r")
+    fileobj=open(path+"u.genre", "r", encoding="latin-1")
     for line in fileobj.readlines():
         rip = str(line.strip()).split('|')
         if len(rip) != 2:
@@ -44,7 +44,7 @@ def populateUsers():
     
     lista=[]
     dict={} # diccionario de los usuarios {idusuario:objeto_usuario}
-    fileobj=open(path+"\\u.user", "r")
+    fileobj=open(path+"u.user", "r", encoding="latin-1")
     for line in fileobj.readlines():
         rip = str(line.strip()).split('|')
         if len(rip) != 5:
@@ -62,7 +62,7 @@ def populateMovies():
     
     lista_peliculas =[]  # lista de peliculas
     dict_categorias={}  #  diccionario de categorias de cada pelicula (idPelicula y lista de categorias)
-    fileobj=open(path+"\\u.item", "r")
+    fileobj=open(path+"u.item", "r", encoding="latin-1")
     for line in fileobj.readlines():
         rip = line.strip().split('|')
         
@@ -91,7 +91,7 @@ def populateRatings(u,m):
     Puntuacion.objects.all().delete()
 
     lista=[]
-    fileobj=open(path+"\\u.data", "r")
+    fileobj=open(path+"u.data", "r", encoding="latin-1")
     for line in fileobj.readlines():
         rip = str(line.strip()).split('\t')
         lista.append(Puntuacion(usuario=u[int(rip[0])], pelicula=m[int(rip[1])], puntuacion=int(rip[2])))
