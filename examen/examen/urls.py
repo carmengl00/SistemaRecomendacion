@@ -1,5 +1,5 @@
 """
-URL configuration for SRColaborativo project.
+URL configuration for examen project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -24,8 +24,4 @@ urlpatterns = [
     path('populate/', views.populate),
     path('ingresar/', views.ingresar),
     path('loadRS/', views.loadRS),
-    path('recomendar_peliculas_usuarios/', views.recomendar_peliculas_usuarios),
-    path('recomendar_peliculas_usuarios_items/', views.recomendar_peliculas_usuarios_items),
-    path('peliculas_similares/', views.peliculas_similares),
-    path('usuarios_recomendados/', views.usuarios_recomendados),
 ]

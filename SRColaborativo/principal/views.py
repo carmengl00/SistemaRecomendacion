@@ -126,7 +126,7 @@ def peliculas_similares(request):
             idPelicula=form.cleaned_data['idPelicula']
             pelicula = get_object_or_404(Pelicula, pk=idPelicula)
             shelf = shelve.open("dataRS.dat")
-            Prefs = shelf['Prefs']
+            Prefs = shelf['ItemsPrefs']
             shelf.close()
 
             similares = topMatches(Prefs, int(idPelicula), n = 3)
@@ -139,4 +139,31 @@ def peliculas_similares(request):
 
     return render(request, 'peliculas_similares.html', {'form': form, 'pelicula': pelicula, 'items': items, 'STATIC_URL': settings.STATIC_URL})
 
+
+def usuarios_recomendados(request):
+    form = BusquedaPeliculaForm()
+    items = None
+    pelicula = None
+
+    if request.method == 'POST':
+        form = BusquedaPeliculaForm(request.POST)
+
+        if form.is_valid():
+            idPelicula=form.cleaned_data['idPelicula']
+            pelicula = get_object_or_404(Pelicula, pk=idPelicula)
+            shelf = shelve.open("dataRS.dat")
+            ItemPrefs = shelf['ItemsPrefs']
+            shelf.close()
+        
+            rankings = getRecommendations(ItemPrefs, int(idPelicula))
+            recomendadas = rankings[:3]
+
+            usuarios = []
+            puntuaciones = []
+            for re in recomendadas:
+                usuarios.append(Usuario.objects.get(pk=re[1]))
+                puntuaciones.append(re[0])
+            items = zip(usuarios, puntuaciones)
+    
+    return render(request, 'recomendar_usuarios_peliculas.html', {'form': form, 'items': items, 'pelicula': pelicula, 'STATIC_URL': settings.STATIC_URL})
 
