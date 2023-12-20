@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block titulo %} {{titulo}} {% endblock %}
+
+{% block contenido %}
+     	<form method="post" action=''>{% csrf_token %}
+            <fieldset>
+                <legend>Búsqueda de pelicula</legend>
+                {{form}}
+                <BR></BR>
+                <input type="submit" value="Buscar">
+            </fieldset>
+        </form>
+
+      {% if items %}
+        <h3>Usuarios recomendados para {{pelicula.idPelicula}}</h3>
+        {% for usuarios,puntos in items %}
+          <h4>Usuario: {{usuarios.idUsuario}}</h4>
+          <p>Puntos: {{puntos}}</p>
+        {% endfor %}
+      {% endif %}
+
+{% endblock %}
