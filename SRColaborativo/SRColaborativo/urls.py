@@ -27,6 +27,4 @@ urlpatterns = [
     path('recomendar_peliculas_usuarios/', views.recomendar_peliculas_usuarios),
     path('recomendar_peliculas_usuarios_items/', views.recomendar_peliculas_usuarios_items),
     path('peliculas_similares/', views.peliculas_similares),
-    path('usuarios_recomendados/', views.usuarios_recomendados),
-    path('puntuaciones_usuario/', views.puntuaciones_usuario),
 ]
