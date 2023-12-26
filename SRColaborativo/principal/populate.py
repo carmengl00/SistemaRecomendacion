@@ -49,7 +49,7 @@ def populateUsers():
         rip = str(line.strip()).split('|')
         if len(rip) != 5:
             continue
-        u=Usuario(idUsuario=int(rip[0]), edad=int(rip[1]), sexo=rip[2], ocupacion=Ocupacion.objects.get(nombre=rip[3]), codigoPostal=rip[4])
+        u=Usuario(idUsuario=int(rip[0]), edad=int(rip[1]), sexo=rip[2], ocupacion=Ocupacion.objects.get(nombre=inrip[3]), codigoPostal=rip[4])
         lista.append(u)
         dict[int(rip[0])]=u
     fileobj.close()

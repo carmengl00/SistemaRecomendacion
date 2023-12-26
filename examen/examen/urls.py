@@ -22,6 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.inicio),
     path('populate/', views.populate),
-    path('ingresar/', views.ingresar),
     path('loadRS/', views.loadRS),
 ]
